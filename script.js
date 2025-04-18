@@ -47,6 +47,7 @@ const cartBtn= document.querySelector(".cart")
 const sideBar= document.querySelector("#side")
 const closeBtn= document.querySelector(".close")
 const cartList= document.querySelector("#sidebar")
+const totalPrice= document.querySelector("#total-price")
 
 
 let cart=[]
@@ -86,19 +87,27 @@ function addToCart(productId) {
   cart.map((product)=>{
     price+=product.price
   })
-  console.log(price);
+  totalPrice.innerHTML=`$${price}`
 
   
 }
 function erase(productId) {
   console.log("click");
 
-  // Keep all items except the one to remove
+  // Remove item from cart
   cart = cart.filter(product => product.id !== productId);
 
-  // Re-display the updated cart
+  // Recalculate total price from updated cart
+  price = 0;
+  cart.forEach(product => {
+    price += product.price;
+  });
+
+  // Update UI
+  totalPrice.innerHTML = `$${price}`;
   displayCart();
 }
+
 
 function displayCart() {
   cartList.innerHTML = ""; // clear existing items
