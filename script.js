@@ -18,7 +18,7 @@ const products=
   price: '$50.00'
 },
 {
-  img: 'https://plus.unsplash.com/premium_photo-1679913792906-13ccc5c84d44?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D',
+  img: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D',
   title: 'Lorem Headphone',
   description: 'Stylish, elegant, super Headphone',
   price: '$100.00'
