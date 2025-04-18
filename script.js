@@ -21,22 +21,25 @@ const products=
   img: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D',
   title: 'Lorem Headphone',
   description: 'Stylish, elegant, super Headphone',
-  price: '$100.00'
+  price: '$200.00'
 },
 {
   img: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D',
   title: 'Lorem Smart Watch',
   description: 'Stylish, elegant, super smart watch',
-  price: '$100.00'
+  price: '$150.00'
 },
 {
   img: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D',
   title: 'Lorem Shoe',
   description: 'Stylish, elegant, super shoe',
-  price: '$100.00'
+  price: '$300.00'
 },
 ]
 const main= document.querySelector('#main')
+const cartBtn= document.querySelector(".cart")
+const sideBar= document.querySelector("#side")
+const closeBtn= document.querySelector(".close")
 
 products.map((product)=>{
   const productBox= document.createElement("div")
@@ -47,7 +50,7 @@ productBox.innerHTML=`
       </div>
       <div class="product-details">
         <h2 class="product-name">${product.title}</h2>
-        <p class="product-description">Product Description</p>
+        <p class="product-description">${product.description}</p>
         <div class="product-selection">
           <p class="product-price">${product.price}</p>
           <div class="number">
@@ -59,4 +62,16 @@ productBox.innerHTML=`
     </div>
 `
 main.appendChild(productBox)
+})
+
+cartBtn.addEventListener("click", ()=>{
+if (sideBar.style.display=="block") {
+  sideBar.style.display="none"
+}else{
+  sideBar.style.display="block"
+}
+})
+closeBtn.addEventListener("click", ()=>{
+  sideBar.style.display="none"
+
 })
