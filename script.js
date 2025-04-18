@@ -81,32 +81,45 @@ function addToCart(productId) {
       displayCart()
     }
   })
-  function displayCart() {
-    cart.map((product)=>{
-      cart=[]
-      let cardItem= document.createElement("div")
-      cardItem.classList.add("cart-item")
-      cardItem.innerHTML=`
-        <div class="cart-product-image">
-          <img src="${product.img}" alt="">
-        </div>
-        <div class="cart-product-details">
-          <h2 class="cart-product-name">${product.title}</h2>
-          <p class="cart-product-description">${product.description}</p>
-          <div class="cart-product-selection">
-            <p class="cart-product-price">${product.price}</p>
-            <div class="cart-number">
-              <button class="decrease">-</button>
-              <input type="number" min="1" name="" value="1" id=""><button class="increase">+</button>
-            </div>
+
+  
+}
+function erase(productId) {
+  console.log("click");
+
+  // Keep all items except the one to remove
+  cart = cart.filter(product => product.id !== productId);
+
+  // Re-display the updated cart
+  displayCart();
+}
+
+function displayCart() {
+  cartList.innerHTML = ""; // clear existing items
+
+  cart.forEach((product) => {
+    let cardItem = document.createElement("div");
+    cardItem.classList.add("cart-item");
+    cardItem.innerHTML = `
+      <div class="cart-product-image">
+        <img src="${product.img}" alt="">
+      </div>
+      <div class="cart-product-details">
+        <h2 class="cart-product-name">${product.title}</h2>
+        <p class="cart-product-description">${product.description}</p>
+        <div class="cart-product-selection">
+          <p class="cart-product-price">${product.price}</p>
+          <div class="cart-number">
+            <button class="decrease">-</button>
+            <input type="number" min="1" name="" value="1" id="">
+            <button class="increase">+</button>
+            <button class="erase-cart" onclick="erase(${product.id})">X</button>
           </div>
         </div>
-      `
-      cartList.appendChild(cardItem)
-    })
-    
-  }
-  
+      </div>
+    `;
+    cartList.appendChild(cardItem);
+  });
 }
 
 cartBtn.addEventListener("click", ()=>{
