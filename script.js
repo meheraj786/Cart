@@ -151,3 +151,37 @@ cartBtn.addEventListener("click", () => {
 closeBtn.addEventListener("click", () => {
   sideBar.style.display = "none";
 });
+const itemsPerPage = 4;
+let currentPage = 1;
+
+// display only the selected products
+function displayProducts(page) {
+  main.innerHTML = ""; // clear old products
+  const start = (page - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  const paginatedProducts = products.slice(start, end);
+
+  paginatedProducts.forEach((product) => {
+    const productBox = document.createElement("div");
+    productBox.classList.add("cart-box");
+    productBox.innerHTML = `
+      <div class="product-image">
+        <img src=${product.img} alt="">
+      </div>
+      <div class="product-details">
+        <h2 class="product-name">${product.title}</h2>
+        <p class="product-description">${product.description}</p>
+        <div class="product-selection">
+          <p class="product-price">$${product.price}</p>
+          <div class="number">
+            <button class="decrease">-</button>
+            <input type="number" min="1" value="1">
+            <button class="increase">+</button>
+          </div>
+        </div>
+        <div class="add"><button onclick="addToCart(${product.id})">Add To cart</button></div>
+      </div>
+    `;
+    main.appendChild(productBox);
+  });
+}
