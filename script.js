@@ -202,5 +202,3 @@ function paginationButtons() {
 
   document.body.appendChild(btnContainer);
 }
-displayProducts(currentPage);
-paginationButtons();
