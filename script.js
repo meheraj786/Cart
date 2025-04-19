@@ -185,3 +185,20 @@ function displayProducts(page) {
     main.appendChild(productBox);
   });
 }
+function paginationButtons() {
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const btnContainer = document.createElement("div");
+  btnContainer.classList.add("pagination");
+
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement("button");
+    btn.innerText = i;
+    btn.addEventListener("click", () => {
+      currentPage = i;
+      displayProducts(currentPage);
+    });
+    btnContainer.appendChild(btn);
+  }
+
+  document.body.appendChild(btnContainer);
+}
