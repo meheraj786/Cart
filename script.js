@@ -42,80 +42,57 @@ const products=
   price: 300.00,
 },
 ]
-const main= document.querySelector('#main')
-const cartBtn= document.querySelector(".cart")
-const sideBar= document.querySelector("#side")
-const closeBtn= document.querySelector(".close")
-const cartList= document.querySelector("#sidebar")
-const totalPrice= document.querySelector("#total-price")
+const main = document.querySelector('#main');
+const cartBtn = document.querySelector(".cart");
+const sideBar = document.querySelector("#side");
+const closeBtn = document.querySelector(".close");
+const cartList = document.querySelector("#sidebar");
+const totalPrice = document.querySelector("#total-price");
 
+let cart = [];
 
-let cart=[]
-let price=0
+const product = [ /* your product array stays unchanged */ ];
 
-products.map((product)=>{
-  const productBox= document.createElement("div")
-productBox.classList.add("cart-box")
-productBox.innerHTML=`
-      <div class="product-image">
-        <img src=${product.img} alt="">
-      </div>
-      <div class="product-details">
-        <h2 class="product-name">${product.title}</h2>
-        <p class="product-description">${product.description}</p>
-        <div class="product-selection">
-          <p class="product-price">$
-          ${product.price}</p>
-          <div class="number">
-            <button class="decrease">-</button>
-            <input type="number" min="1" name="" value="1" id=""><button class="increase">+</button>
-          </div>
-        </div>
-        <div class="add"><button onclick="addToCart(${product.id})">Add To cart</button></div>
+products.forEach(product => {
+  const productBox = document.createElement("div");
+  productBox.classList.add("cart-box");
+  productBox.innerHTML = `
+    <div class="product-image">
+      <img src=${product.img} alt="">
     </div>
-`
-main.appendChild(productBox)
-})
+    <div class="product-details">
+      <h2 class="product-name">${product.title}</h2>
+      <p class="product-description">${product.description}</p>
+      <div class="product-selection">
+        <p class="product-price">$${product.price}</p>
+      </div>
+      <div class="add"><button onclick="addToCart(${product.id})">Add To Cart</button></div>
+    </div>
+  `;
+  main.appendChild(productBox);
+});
+
 function addToCart(productId) {
-  products.find((product)=>{
-    if (productId===product.id) {
-      cart.push(product)
-      displayCart()
-    }
-  })
-  price=0
-  cart.map((product)=>{
-    price+=product.price
-  })
-  totalPrice.innerHTML=`$${price}`
+  const existingProduct = cart.find(p => p.id === productId);
 
-  
-}
-function erase(productId) {
-  console.log("click");
+  if (existingProduct) {
+    existingProduct.quantity += 1;
+  } else {
+    const product = products.find(p => p.id === productId);
+    cart.push({ ...product, quantity: 1 });
+  }
 
-  // Remove item from cart
-  cart = cart.filter(product => product.id !== productId);
-
-  // Recalculate total price from updated cart
-  price = 0;
-  cart.forEach(product => {
-    price += product.price;
-  });
-
-  // Update UI
-  totalPrice.innerHTML = `$${price}`;
   displayCart();
+  updateTotal();
 }
-
 
 function displayCart() {
-  cartList.innerHTML = ""; // clear existing items
+  cartList.innerHTML = "";
 
-  cart.forEach((product) => {
-    let cardItem = document.createElement("div");
-    cardItem.classList.add("cart-item");
-    cardItem.innerHTML = `
+  cart.forEach(product => {
+    const item = document.createElement("div");
+    item.classList.add("cart-item");
+    item.innerHTML = `
       <div class="cart-product-image">
         <img src="${product.img}" alt="">
       </div>
@@ -123,30 +100,54 @@ function displayCart() {
         <h2 class="cart-product-name">${product.title}</h2>
         <p class="cart-product-description">${product.description}</p>
         <div class="cart-product-selection">
-          <p class="cart-product-price">${product.price}</p>
+          <p class="cart-product-price">$${product.price} x ${product.quantity} = $${(product.price * product.quantity).toFixed(2)}</p>
           <div class="cart-number">
-            <button class="decrease">-</button>
-            <input type="number" min="1" name="" value="1" id="">
-            <button class="increase">+</button>
+            <button onclick="changeQuantity(${product.id}, 'decrease')">-</button>
+            <span>${product.quantity}</span>
+            <button onclick="changeQuantity(${product.id}, 'increase')">+</button>
             <button class="erase-cart" onclick="erase(${product.id})">X</button>
           </div>
         </div>
       </div>
     `;
-    cartList.appendChild(cardItem);
+    cartList.appendChild(item);
+  });
+}
+
+function changeQuantity(productId, action) {
+  cart = cart.map(product => {
+    if (product.id === productId) {
+      if (action === "increase") {
+        product.quantity += 1;
+      } else if (action === "decrease" && product.quantity > 1) {
+        product.quantity -= 1;
+      }
+    }
+    return product;
   });
 
-
+  displayCart();
+  updateTotal();
 }
 
-cartBtn.addEventListener("click", ()=>{
-if (sideBar.style.display=="block") {
-  sideBar.style.display="none"
-}else{
-  sideBar.style.display="block"
+function erase(productId) {
+  cart = cart.filter(product => product.id !== productId);
+  displayCart();
+  updateTotal();
 }
-})
-closeBtn.addEventListener("click", ()=>{
-  sideBar.style.display="none"
 
-})
+function updateTotal() {
+  let total = 0;
+  cart.forEach(product => {
+    total += product.price * product.quantity;
+  });
+  totalPrice.innerHTML = `$${total.toFixed(2)}`;
+}
+
+cartBtn.addEventListener("click", () => {
+  sideBar.style.display = sideBar.style.display === "block" ? "none" : "block";
+});
+
+closeBtn.addEventListener("click", () => {
+  sideBar.style.display = "none";
+});
