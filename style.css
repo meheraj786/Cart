@@ -168,7 +168,7 @@ input{
   margin-top: 10px;
 }
 #sidebar button{
-  background-color: #007bff;
+  background-color: #218838;
   color: #fff;
   border: none;
   padding: 5px 10px;
@@ -285,14 +285,14 @@ input{
   padding: 1em;
   margin: 0;
   border: none;
-  border-bottom: 2px solid #6759ff;
+  border-bottom: 2px solid #4CAF50;
   border-radius: 3em;
   outline: none;
   font-size: 1em;
   color: #110f29;
 }
 #search-container input:focus {
-  border-bottom-color: #6759ff;
+  border-bottom-color: #4CAF50;
 }
 #search-container button {
   background-color: #4CAF50;
@@ -318,7 +318,7 @@ input{
   color: #ffffff;
 }
 .active {
-  background-color: #6759ff;
+  background-color: #45a049;
   color: #ffffff;
 }
 
