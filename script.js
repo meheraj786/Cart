@@ -303,6 +303,50 @@ function filterProduct(category){
         
       }
     })
-
   }
 }
+document.querySelector("#search").addEventListener("click",()=>{
+  
+  main.innerHTML=''
+  const search= document.querySelector("#search-input").value
+products.map((product)=>{
+  if (product.title.toLowerCase().includes(search.toLowerCase())) {
+    const productBox = document.createElement("div");
+    productBox.classList.add("cart-box");
+    productBox.innerHTML = `
+      <div class="product-image">
+        <img src=${product.img} alt="">
+      </div>
+      <div class="product-details">
+        <h2 class="product-name">${product.title}</h2>
+        <p class="product-description">${product.description}</p>
+        <div class="product-selection">
+          <p class="product-price">$${product.price}</p>
+        </div>
+        <div class="add"><button onclick="addToCart(${product.id})">Add To Cart</button></div>
+      </div>
+    `;
+    main.appendChild(productBox);
+  }
+})
+  // products.filter((product)=>{
+  //   if (search==product.title) {
+  //     const productBox = document.createElement("div");
+  //     productBox.classList.add("cart-box");
+  //     productBox.innerHTML = `
+  //       <div class="product-image">
+  //         <img src=${product.img} alt="">
+  //       </div>
+  //       <div class="product-details">
+  //         <h2 class="product-name">${product.title}</h2>
+  //         <p class="product-description">${product.description}</p>
+  //         <div class="product-selection">
+  //           <p class="product-price">$${product.price}</p>
+  //         </div>
+  //         <div class="add"><button onclick="addToCart(${product.id})">Add To Cart</button></div>
+  //       </div>
+  //     `;
+  //     main.appendChild(productBox);
+  //   }
+  // })
+})
