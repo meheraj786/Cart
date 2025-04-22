@@ -199,6 +199,7 @@ function updateTotal() {
 }
 
 cartBtn.addEventListener("click", () => {
+  console.log("click");
   sideBar.style.display = sideBar.style.display === "block" ? "none" : "block";
 });
 
@@ -336,7 +337,6 @@ const search= document.querySelector("#search-input")
 
 search.addEventListener("change", ()=>{
   main.innerHTML=''
-  console.log("change");
   // const search= document.querySelector("#search-input").value
 products.map((product)=>{
   if (product.title.toLowerCase().includes(search.value.toLowerCase())) {
