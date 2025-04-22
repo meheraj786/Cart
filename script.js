@@ -256,3 +256,53 @@ function paginationButtons() {
 
   document.body.appendChild(btnContainer);
 }
+
+function filterProduct(category){
+  main.innerHTML=''
+  if (category==='All') {
+    products.map((product)=>{
+        
+    const productBox = document.createElement("div");
+    productBox.classList.add("cart-box");
+    productBox.innerHTML = `
+      <div class="product-image">
+        <img src=${product.img} alt="">
+      </div>
+      <div class="product-details">
+        <h2 class="product-name">${product.title}</h2>
+        <p class="product-description">${product.description}</p>
+        <div class="product-selection">
+          <p class="product-price">$${product.price}</p>
+        </div>
+        <div class="add"><button onclick="addToCart(${product.id})">Add To Cart</button></div>
+      </div>
+    `;
+    main.appendChild(productBox);
+        
+    })
+  }else{
+    products.filter((product)=>{
+      if (product.category==category) {
+        
+    const productBox = document.createElement("div");
+    productBox.classList.add("cart-box");
+    productBox.innerHTML = `
+      <div class="product-image">
+        <img src=${product.img} alt="">
+      </div>
+      <div class="product-details">
+        <h2 class="product-name">${product.title}</h2>
+        <p class="product-description">${product.description}</p>
+        <div class="product-selection">
+          <p class="product-price">$${product.price}</p>
+        </div>
+        <div class="add"><button onclick="addToCart(${product.id})">Add To Cart</button></div>
+      </div>
+    `;
+    main.appendChild(productBox);
+        
+      }
+    })
+
+  }
+}
