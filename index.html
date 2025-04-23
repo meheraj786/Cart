@@ -1,97 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cart</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div id="toast">
-    <div id="toast-message">
-      <p>Product added to cart</p>
-    </div>
-  </div>
-
-  <button onclick="sidebarColl()" class="cart">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1m-9-1a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1M18 6H4.27l2.55 6H15c.33 0 .62-.16.8-.4l3-4c.13-.17.2-.38.2-.6a1 1 0 0 0-1-1m-3 7H6.87l-.77 1.56L6 15a1 1 0 0 0 1 1h11v1H7a2 2 0 0 1-2-2a2 2 0 0 1 .25-.97l.72-1.47L2.34 4H1V3h2l.85 2H18a2 2 0 0 1 2 2c0 .5-.17.92-.45 1.26l-2.91 3.89c-.36.51-.96.85-1.64.85"/></svg>
-  </button>
-  <div id="main">
-    <!-- <div class="cart-box">
-      <div class="product-image">
-        <img src="https://5.imimg.com/data5/KC/PC/MY-38629861/dummy-chronograph-watch.jpg" alt="">
-      </div>
-      <div class="product-details">
-        <h2 class="product-name">Product Name</h2>
-        <p class="product-description">Product Description</p>
-        <div class="product-selection">
-          <p class="product-price">$0.00</p>
-          <div class="number">
-            <button class="decrease">-</button>
-            <input type="number" min="1" name="" value="1" id=""><button class="increase">+</button>
-          </div>
-        </div>
-        <div class="add"><button>Add To cart</button></div>
-    </div>
-  </div> -->
-
-  <div id="side">
-    <button class="close">X</button>
-    <div id="sidebar">
-      <!-- <div class="cart-item">
-        <div class="cart-product-image">
-          <img src="https://5.imimg.com/data5/KC/PC/MY-38629861/dummy-chronograph-watch.jpg" alt="">
-        </div>
-        <div class="cart-product-details">
-          <h2 class="cart-product-name">Product Name</h2>
-          <p class="cart-product-description">Product Description</p>
-          <div class="cart-product-selection">
-            <p class="cart-product-price">$0.00</p>
-            <div class="cart-number">
-              <button class="decrease">-</button>
-              <input type="number" min="1" name="" value="1" id=""><button class="increase">+</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="header">
+      <div class="container">
+        <div class="header-wrapper">
+          <h1>Shopping Cart</h1>
+          <div class="header-navigation">
+            <div class="search-container">
+              <input
+                type="search"
+                id="search-input"
+                placeholder="Search product name here.."
+              />
+              <button id="search">Search</button>
+            </div>
+            <div class="catagories">
+              <button class="button-value" onclick="filterProduct('All')">All</button>
+              <button class="button-value" onclick="filterProduct('Topwear')">
+                Topwear
+              </button>
+              <button class="button-value" onclick="filterProduct('Bottomwear')">
+                Bottomwear
+              </button>
+              <button class="button-value" onclick="filterProduct('Shoes')">
+                Shoes
+              </button>
+              <button class="button-value" onclick="filterProduct('Accesories')">
+                Accesories
+              </button>
+            </div>
+            <div class="cart">
+              <button onclick="sidebarToggle()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1m-9-1a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1M18 6H4.27l2.55 6H15c.33 0 .62-.16.8-.4l3-4c.13-.17.2-.38.2-.6a1 1 0 0 0-1-1m-3 7H6.87l-.77 1.56L6 15a1 1 0 0 0 1 1h11v1H7a2 2 0 0 1-2-2a2 2 0 0 1 .25-.97l.72-1.47L2.34 4H1V3h2l.85 2H18a2 2 0 0 1 2 2c0 .5-.17.92-.45 1.26l-2.91 3.89c-.36.51-.96.85-1.64.85"/></svg></button>
             </div>
           </div>
+
         </div>
-      </div> -->
+      </div>
     </div>
-    <div id="cart-total">
-      <h2>Total</h2>
-      <p id="total-price">$0.00</p>
-      <button id="checkout">Checkout</button>
-    </div>
-  </div>
+    <div id="sidebar">
+      <div class="sidebar-wrapper">
+        <div class="sidebar-header">
+          <h2>Cart</h2>
+          <button id="close" onclick="sidebarToggle()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19.41 6.59L18 5.17l-7 7l-7-7L4.59 6.59L11.59 13L4.59 19.41L6 20.83l7-7l7 7l1.41-1.41L13.41 13z"/></svg></button>
+        </div>
+        <div class="cart-items">
 
-  <div class="navigation">
-    <div id="search-container">
-      <input
-        type="search"
-        id="search-input"
-        placeholder="Search product name here.."
-      />
-      <button id="search">Search</button>
-    </div>
-    <div id="buttons">
-      <button class="button-value" onclick="filterProduct('All')">All</button>
-      <button class="button-value" onclick="filterProduct('Topwear')">
-        Topwear
-      </button>
-      <button class="button-value" onclick="filterProduct('Bottomwear')">
-        Bottomwear
-      </button>
-      <button class="button-value" onclick="filterProduct('Shoes')">
-        Shoes
-      </button>
-      <button class="button-value" onclick="filterProduct('Accesories')">
-        Accesories
-      </button>
-    </div>
-  </div>
+        </div>
+      </div>
+      <div id="products">
+        <div class="products-wrapper">
+          <div class="products-section">
+            <!-- Add more products as needed -->
+            hello world
+          </div>
+        </div>
+      </div>
 
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
