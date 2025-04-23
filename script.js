@@ -96,23 +96,26 @@ const products=
   category: 'Bottomwear'
 },
 ]
+
+
 const main = document.querySelector('#main');
 const cartBtn = document.querySelector(".cart");
 const sideBar = document.querySelector("#side");
 const closeBtn = document.querySelector(".close");
 const cartList = document.querySelector("#sidebar");
 const totalPrice = document.querySelector("#total-price");
+const searchInput = document.querySelector("#search-input");
+const searchBtn = document.querySelector("#search");
+const toast= document.querySelector("#toast")
 
 let cart = [];
-
-const product = [ /* your product array stays unchanged */ ];
 
 products.forEach(product => {
   const productBox = document.createElement("div");
   productBox.classList.add("cart-box");
   productBox.innerHTML = `
     <div class="product-image">
-      <img src=${product.img} alt="">
+      <img src="${product.img}" alt="">
     </div>
     <div class="product-details">
       <h2 class="product-name">${product.title}</h2>
@@ -120,22 +123,24 @@ products.forEach(product => {
       <div class="product-selection">
         <p class="product-price">$${product.price}</p>
       </div>
-      <div class="add"><button onclick="addToCart(${product.id})">Add To Cart</button></div>
+      <div class="add"><button class="addToCart" onclick="addToCart(${product.id})">Add To Cart</button></div>
     </div>
   `;
   main.appendChild(productBox);
 });
 
 function addToCart(productId) {
+  toast.style.display="block"
+  setTimeout(() => {
+    toast.style.display="none"
+  }, 2000);
   const existingProduct = cart.find(p => p.id === productId);
-
   if (existingProduct) {
     existingProduct.quantity += 1;
   } else {
     const product = products.find(p => p.id === productId);
     cart.push({ ...product, quantity: 1 });
   }
-
   displayCart();
   updateTotal();
 }
@@ -198,164 +203,15 @@ function updateTotal() {
   totalPrice.innerHTML = `$${total.toFixed(2)}`;
 }
 
-cartBtn.addEventListener("click", () => {
-  console.log("click");
-  sideBar.style.display = sideBar.style.display === "block" ? "none" : "block";
-});
+function sidebarColl() {
+  if (sideBar.style.display == "block") {
+    sideBar.style.display = "none";
+  }else{
+    sideBar.style.display = "block";
+  }
+};
 
 closeBtn.addEventListener("click", () => {
   sideBar.style.display = "none";
 });
-const itemsPerPage = 4;
-let currentPage = 1;
 
-// display only the selected products
-function displayProducts(page) {
-  main.innerHTML = ""; // clear old products
-  const start = (page - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  const paginatedProducts = products.slice(start, end);
-
-  paginatedProducts.forEach((product) => {
-    const productBox = document.createElement("div");
-    productBox.classList.add("cart-box");
-    productBox.innerHTML = `
-      <div class="product-image">
-        <img src=${product.img} alt="">
-      </div>
-      <div class="product-details">
-        <h2 class="product-name">${product.title}</h2>
-        <p class="product-description">${product.description}</p>
-        <div class="product-selection">
-          <p class="product-price">$${product.price}</p>
-          <div class="number">
-            <button class="decrease">-</button>
-            <input type="number" min="1" value="1">
-            <button class="increase">+</button>
-          </div>
-        </div>
-        <div class="add"><button onclick="addToCart(${product.id})">Add To cart</button></div>
-      </div>
-    `;
-    main.appendChild(productBox);
-  });
-}
-function paginationButtons() {
-  const totalPages = Math.ceil(products.length / itemsPerPage);
-  const btnContainer = document.createElement("div");
-  btnContainer.classList.add("pagination");
-
-  for (let i = 1; i <= totalPages; i++) {
-    const btn = document.createElement("button");
-    btn.innerText = i;
-    btn.addEventListener("click", () => {
-      currentPage = i;
-      displayProducts(currentPage);
-    });
-    btnContainer.appendChild(btn);
-  }
-
-  document.body.appendChild(btnContainer);
-}
-
-function filterProduct(category){
-  main.innerHTML=''
-  if (category==='All') {
-    products.map((product)=>{
-        
-    const productBox = document.createElement("div");
-    productBox.classList.add("cart-box");
-    productBox.innerHTML = `
-      <div class="product-image">
-        <img src=${product.img} alt="">
-      </div>
-      <div class="product-details">
-        <h2 class="product-name">${product.title}</h2>
-        <p class="product-description">${product.description}</p>
-        <div class="product-selection">
-          <p class="product-price">$${product.price}</p>
-        </div>
-        <div class="add"><button onclick="addToCart(${product.id})">Add To Cart</button></div>
-      </div>
-    `;
-    main.appendChild(productBox);
-        
-    })
-  }else{
-    products.filter((product)=>{
-      if (product.category==category) {
-        
-    const productBox = document.createElement("div");
-    productBox.classList.add("cart-box");
-    productBox.innerHTML = `
-      <div class="product-image">
-        <img src=${product.img} alt="">
-      </div>
-      <div class="product-details">
-        <h2 class="product-name">${product.title}</h2>
-        <p class="product-description">${product.description}</p>
-        <div class="product-selection">
-          <p class="product-price">$${product.price}</p>
-        </div>
-        <div class="add"><button onclick="addToCart(${product.id})">Add To Cart</button></div>
-      </div>
-    `;
-    main.appendChild(productBox);
-        
-      }
-    })
-  }
-}
-document.querySelector("#search").addEventListener("click",()=>{
-  
-  main.innerHTML=''
-  const search= document.querySelector("#search-input").value
-products.map((product)=>{
-  if (product.title.toLowerCase().includes(search.toLowerCase())) {
-    const productBox = document.createElement("div");
-    productBox.classList.add("cart-box");
-    productBox.innerHTML = `
-      <div class="product-image">
-        <img src=${product.img} alt="">
-      </div>
-      <div class="product-details">
-        <h2 class="product-name">${product.title}</h2>
-        <p class="product-description">${product.description}</p>
-        <div class="product-selection">
-          <p class="product-price">$${product.price}</p>
-        </div>
-        <div class="add"><button onclick="addToCart(${product.id})">Add To Cart</button></div>
-      </div>
-    `;
-    main.appendChild(productBox);
-  }
-})
-})
-
-
-const search= document.querySelector("#search-input")
-
-search.addEventListener("change", ()=>{
-  main.innerHTML=''
-  // const search= document.querySelector("#search-input").value
-products.map((product)=>{
-  if (product.title.toLowerCase().includes(search.value.toLowerCase())) {
-    const productBox = document.createElement("div");
-    productBox.classList.add("cart-box");
-    productBox.innerHTML = `
-      <div class="product-image">
-        <img src=${product.img} alt="">
-      </div>
-      <div class="product-details">
-        <h2 class="product-name">${product.title}</h2>
-        <p class="product-description">${product.description}</p>
-        <div class="product-selection">
-          <p class="product-price">$${product.price}</p>
-        </div>
-        <div class="add"><button onclick="addToCart(${product.id})">Add To Cart</button></div>
-      </div>
-    `;
-    main.appendChild(productBox);
-  }
-})
-})

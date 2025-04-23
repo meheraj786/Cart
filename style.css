@@ -143,18 +143,51 @@ input{
   border-radius: 10px;
   height: 100%;
 }
-#side {
+#toast{
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background-color: #28a745;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1000;
+  display: none;
+}
+#toast::after{
+  content: '';
   position: absolute;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 0%;
+  height: 5px;
+  background-color: #fff;
+  animation: fade-out 2s forwards;
+}
+@keyframes fade-out {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+#side {
+  display: none;
+  cursor: pointer;
+  position: fixed;
   top: 0;
   right: 0;
-  width: 600px; 
-  height: auto;
-  background: #ccc;
-  padding: 20px;
+  width: 350px;
   height: 100%;
-  display: none;
-  z-index: 9999;
+  background: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 20px;
 }
+
 #sidebar img {
   width: 100%;
   max-width: 300px; 
@@ -273,13 +306,14 @@ input{
   gap: 10px;
 }
 .navigation{
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  z-index: 9999;
 }
 #search-container input {
   width: 60%;
