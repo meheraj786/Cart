@@ -158,7 +158,6 @@ input{
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
   display: block;
   width: 0%;
   height: 5px;
